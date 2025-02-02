@@ -43,7 +43,7 @@ const SunIcon = () => (
 );
 
 interface TwitchPreviewProps {
-  badge: ResizedImage;
+  badge?: ResizedImage;
   emote: ResizedImage;
 }
 
@@ -53,20 +53,22 @@ export const TwitchPreview = ({ badge, emote }: TwitchPreviewProps) => {
   const bg = theme === "light" ? "bg-[#ffffff]" : "bg-[#18181b]";
   const text = theme === "light" ? "text-[#e1654e]" : "text-[#fb9c8a]";
 
-  if (!badge || !emote) return null;
+  if (!emote) return null;
 
   return (
     <div
       className={`flex items-center justify-between h-8 w-[300px] px-3 py-5 rounded-md ${bg} transition-colors`}
     >
       <div className="flex items-center justify-start gap-2">
-        <Image
-          src={badge.content}
-          width={badge.metadata.width}
-          height={badge.metadata.height}
-          alt="Preview of the emote when used as a badge"
-          className="h-[18px] w-[18px]"
-        />
+        {badge && (
+          <Image
+            src={badge.content}
+            width={badge.metadata.width}
+            height={badge.metadata.height}
+            alt="Preview of the emote when used as a badge"
+            className="h-[18px] w-[18px]"
+          />
+        )}
         <span className={`text-[13px] font-bold ${text}`}>lukeramljak</span>
         <Image
           src={emote.content}
