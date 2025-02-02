@@ -34,7 +34,7 @@ const AnimatedToolCore = ({
     convertImages();
   }, [imageMetadata, rawContent]);
 
-  const handleClear = () => {
+  const handleNewImage = () => {
     fileUploaderProps.cancel();
   };
 
@@ -63,7 +63,7 @@ const AnimatedToolCore = ({
         <ImageContainer images={convertedEmotes} />
       </div>
       <div className="flex gap-2">
-        <Button onClick={handleClear}>Clear</Button>
+        <Button onClick={handleNewImage}>New Image</Button>
         <Button onClick={handleDownloadAllImages}>Download All</Button>
       </div>
     </div>

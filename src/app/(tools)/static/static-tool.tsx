@@ -42,7 +42,7 @@ const StaticToolCore = ({
     convertImages();
   }, [imageMetadata, imageContent]);
 
-  const handleClear = () => {
+  const handleNewImage = () => {
     fileUploaderProps.cancel();
   };
 
@@ -79,7 +79,7 @@ const StaticToolCore = ({
         <ImageContainer images={convertedBadges} />
       </div>
       <div className="flex gap-2">
-        <Button onClick={handleClear}>Clear</Button>
+        <Button onClick={handleNewImage}>New Image</Button>
         <Button onClick={handleDownloadAllImages}>Download All</Button>
       </div>
     </div>
