@@ -44,7 +44,7 @@ const AnimatedToolCore = ({
   if (!imageMetadata)
     return (
       <UploadBox
-        title="Convert an image to multiple sizes"
+        title="Convert an animated GIF to multiple sizes"
         description="Upload GIF"
         accept={".gif"}
         onChange={handleFileUploadEvent}
