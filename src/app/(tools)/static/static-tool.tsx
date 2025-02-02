@@ -5,7 +5,11 @@ import { FileDropzone } from "@/components/shared/file-dropzone";
 import { ImageContainer } from "@/components/shared/image";
 import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
-import { convertImageToMultipleSizes, ResizedImage } from "@/lib/img-utils";
+import {
+  convertImageToMultipleSizes,
+  downloadAllImages,
+  ResizedImage,
+} from "@/lib/img-utils";
 import { useEffect, useState } from "react";
 
 const StaticToolCore = ({
@@ -40,6 +44,14 @@ const StaticToolCore = ({
     convertImages();
   }, [imageMetadata, imageContent]);
 
+  const handleCancel = () => {
+    fileUploaderProps.cancel();
+  };
+
+  const handleDownloadAllImages = async () => {
+    await downloadAllImages([...convertedEmotes, ...convertedBadges]);
+  };
+
   if (!imageMetadata)
     return (
       <UploadBox
@@ -60,7 +72,10 @@ const StaticToolCore = ({
         <span className="font-bold">Badges</span>
         <ImageContainer images={convertedBadges} />
       </div>
-      <Button onClick={() => fileUploaderProps.cancel()}>Clear</Button>
+      <div className="flex gap-2">
+        <Button onClick={handleCancel}>Clear</Button>
+        <Button onClick={handleDownloadAllImages}>Download All</Button>
+      </div>
     </div>
   );
 };
