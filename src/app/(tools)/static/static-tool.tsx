@@ -3,6 +3,7 @@
 import { Button } from "@/components/button";
 import { FileDropzone } from "@/components/shared/file-dropzone";
 import { ImageContainer } from "@/components/shared/image";
+import { TwitchPreview } from "@/components/shared/twitch-preview";
 import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
@@ -61,6 +62,14 @@ const StaticToolCore = ({
 
   return (
     <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col gap-4">
+        <span className="font-bold">Preview</span>
+        <TwitchPreview
+          key={imageContent}
+          badge={convertedBadges[0]}
+          emote={convertedEmotes[0]}
+        />
+      </div>
       <div className="flex flex-col gap-4 w-full max-w-[800px]">
         <span className="font-bold">Emotes</span>
         <ImageContainer images={convertedEmotes} />
