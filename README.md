@@ -65,7 +65,7 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 If you find this project useful, please consider giving it a star on GitHub.
 
-## Acknowledgments
+## Acknowledgements
 
 - [tma02/twitch-emote-resizer](https://github.com/tma02/twitch-emote-resizer) - Original inspiration for this project
 - [t3dotgg/quickpic](https://github.com/t3dotgg/quickpic) - File upload implementation reference
