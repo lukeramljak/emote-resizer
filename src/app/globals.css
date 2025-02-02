@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: 240 7% 6%;
+  --foreground: 0 0% 93%;
+  --twitch-purple: 264 100% 64%;
+  --twitch-dark: 240 6% 10%;
+  --twitch-light: 0 0% 100%;
+  --button: 240 6.93% 19.8%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }

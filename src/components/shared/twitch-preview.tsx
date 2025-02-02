@@ -50,7 +50,7 @@ interface TwitchPreviewProps {
 export const TwitchPreview = ({ badge, emote }: TwitchPreviewProps) => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
-  const bg = theme === "light" ? "bg-[#ffffff]" : "bg-[#18181b]";
+  const bg = theme === "light" ? "bg-twitch-light" : "bg-twitch-dark";
   const text = theme === "light" ? "text-[#e1654e]" : "text-[#fb9c8a]";
 
   if (!emote) return null;

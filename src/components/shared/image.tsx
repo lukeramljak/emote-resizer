@@ -8,7 +8,7 @@ interface ImageRendererProps {
 const ImageCard = ({ image }: ImageRendererProps) => {
   return (
     <div
-      className="flex flex-col justify-between border border-white/30 rounded-md cursor-pointer transition-colors hover:bg-white/10"
+      className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors bg-twitch-dark/80 hover:bg-twitch-dark"
       onClick={() => downloadImage(image)}
     >
       <div className="flex items-center justify-center h-[calc(112px+2rem)]">
@@ -19,11 +19,11 @@ const ImageCard = ({ image }: ImageRendererProps) => {
           height={image.metadata.height}
         />
       </div>
-      <div className="flex flex-col items-center justify-between p-2 text-xs text-gray-200 bg-white/10 sm:flex-row">
+      <div className="flex flex-col items-center justify-between rounded-b-md p-2 font-bold text-xs text-gray-200 bg-twitch-purple sm:flex-row">
         <span>
           {image.metadata.width}px x {image.metadata.height}px
         </span>
-        <span className="font-bold">{image.fileSize}KB</span>
+        <span>{image.fileSize}KB</span>
       </div>
     </div>
   );

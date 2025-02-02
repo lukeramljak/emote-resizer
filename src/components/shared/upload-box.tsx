@@ -23,7 +23,7 @@ export const UploadBox = ({
           </p>
         )}
       </div>
-      <div className="flex w-72 flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-white/30 bg-white/10 p-6 backdrop-blur-sm">
+      <div className="flex w-72 flex-col items-center justify-center gap-4 rounded-xl border border-white/30 bg-twitch-dark p-6 backdrop-blur-sm">
         <svg
           className="h-8 w-8 text-gray-400"
           fill="none"
@@ -39,7 +39,7 @@ export const UploadBox = ({
         </svg>
         <p className="text-sm text-gray-400">Drag and Drop</p>
         <p className="text-sm text-gray-500">or</p>
-        <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-md transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-twitch-purple px-4 py-2 font-semibold text-white shadow-md transition-colors duration-200 hover:bg-twitch-purple/70 focus:outline-none focus:ring-2 focus:ring-twitch-purple focus:ring-opacity-75">
           <span>{description}</span>
           <input
             type="file"
