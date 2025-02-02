@@ -47,6 +47,29 @@ const parseImageFile = (
   });
 };
 
+const parseGifFile = (
+  content: string,
+  fileName: string,
+): Promise<{
+  content: string;
+  metadata: { width: number; height: number; name: string };
+}> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        content,
+        metadata: {
+          width: img.width,
+          height: img.height,
+          name: fileName,
+        },
+      });
+    };
+    img.src = content;
+  });
+};
+
 export type FileUploaderResult = {
   /** The processed image content as a data URL (for regular images) or object URL (for SVGs) */
   imageContent: string;
@@ -96,6 +119,13 @@ export const useFileUploader = (): FileUploaderResult => {
         );
         setImageContent(svgContent);
         setImageMetadata(metadata);
+      } else if (file.type === "image/gif") {
+        const { content: gifContent, metadata } = await parseGifFile(
+          content,
+          file.name,
+        );
+        setImageContent(gifContent);
+        setImageMetadata(metadata);
       } else {
         const { content: imgContent, metadata } = await parseImageFile(
           content,
@@ -126,7 +156,15 @@ export const useFileUploader = (): FileUploaderResult => {
 
   useClipboardPaste({
     onPaste: handleFilePaste,
-    acceptedFileTypes: ["image/*", ".jpg", ".jpeg", ".png", ".webp", ".svg"],
+    acceptedFileTypes: [
+      "image/*",
+      ".jpg",
+      ".jpeg",
+      ".png",
+      ".webp",
+      ".svg",
+      ".gif",
+    ],
   });
 
   const cancel = () => {
