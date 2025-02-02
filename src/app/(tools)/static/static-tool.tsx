@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/button";
 import { FileDropzone } from "@/components/shared/file-dropzone";
 import { ImageContainer } from "@/components/shared/image";
 import { UploadBox } from "@/components/shared/upload-box";
@@ -59,6 +60,7 @@ const StaticToolCore = ({
         <span className="font-bold">Badges</span>
         <ImageContainer images={convertedBadges} />
       </div>
+      <Button onClick={() => fileUploaderProps.cancel()}>Clear</Button>
     </div>
   );
 };
