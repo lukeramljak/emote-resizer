@@ -9,7 +9,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Twitch Emote Resizer",
-  description: "Resize Twitch emotes to any size for free",
+  description:
+    "Convert images and GIFs to use for your Twitch channel, totally free",
 };
 
 export default function RootLayout({
