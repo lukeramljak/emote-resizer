@@ -1,4 +1,5 @@
 import { bytesToKilobytes, ResizedImage } from "@/lib/img-utils";
+import Pica from "pica";
 
 export const convertImageToMultipleSizes = async (
   imageContent: string,
@@ -8,41 +9,23 @@ export const convertImageToMultipleSizes = async (
   const img = new Image();
   img.src = imageContent;
 
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+  const pica = new Pica({
+    features: ["js", "wasm", "cib"],
+  });
 
-  if (!ctx) {
-    throw new Error("Could not get 2d context");
-  }
-
-  canvas.width = imageMetadata.width;
-  canvas.height = imageMetadata.height;
-
-  ctx.drawImage(img, 0, 0);
+  await new Promise<void>((resolve, reject) => {
+    img.onload = () => resolve();
+    img.onerror = (err) => reject(err);
+  });
 
   const resizedImages: ResizedImage[] = await Promise.all(
     sizes.map(async (size) => {
       const resizedCanvas = document.createElement("canvas");
-      const resizedCtx = resizedCanvas.getContext("2d");
-
-      if (!resizedCtx) {
-        throw new Error("Could not get 2d context for resized canvas");
-      }
 
       resizedCanvas.width = size;
       resizedCanvas.height = size;
 
-      resizedCtx.drawImage(
-        canvas,
-        0,
-        0,
-        imageMetadata.width,
-        imageMetadata.height,
-        0,
-        0,
-        size,
-        size,
-      );
+      await pica.resize(img, resizedCanvas);
 
       return {
         content: resizedCanvas.toDataURL("image/png"),
@@ -61,12 +44,6 @@ export const convertImageToMultipleSizes = async (
 };
 
 const estimateCanvasFileSize = (canvas: HTMLCanvasElement): number => {
-  const ctx = canvas.getContext("2d");
-
-  if (!ctx) {
-    throw new Error("Could not get 2d context");
-  }
-
   const imageDataHeader = "data:image/png;base64,";
   return Math.round(
     ((canvas.toDataURL("image/png").length - imageDataHeader.length) * 3) / 4,
