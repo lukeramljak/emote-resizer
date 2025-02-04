@@ -6,7 +6,6 @@ import { ImageContainer } from "@/components/shared/image";
 import { TwitchPreview } from "@/components/shared/twitch-preview";
 import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
-import { convertGifToMultipleSizes } from "@/lib/animated-utils";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
 import { useEffect, useState } from "react";
 
@@ -18,24 +17,54 @@ const AnimatedToolCore = ({
   const { imageMetadata, rawContent, handleFileUploadEvent } =
     fileUploaderProps;
   const [convertedEmotes, setConvertedEmotes] = useState<ResizedImage[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const convertImages = async () => {
-      if (imageMetadata && rawContent) {
-        const emotes = await convertGifToMultipleSizes(
-          rawContent,
-          imageMetadata,
-          [112, 56, 28],
-        );
-        setConvertedEmotes(emotes);
+    let isMounted = true;
+
+    const resizeGifs = async (base64: string) => {
+      try {
+        setIsLoading(true);
+
+        const formData = new FormData();
+        formData.append("file", base64);
+        formData.append("metadata", JSON.stringify(imageMetadata));
+
+        const response = await fetch("/api/resize-gif", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          fileUploaderProps.cancel();
+          throw new Error("Failed to resize GIF");
+        }
+
+        const resizedImages = await response.json();
+
+        if (isMounted) {
+          setConvertedEmotes(resizedImages);
+        }
+      } catch {
+        alert("Failed to resize GIF. Please try again.");
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
     };
 
-    convertImages();
+    if (imageMetadata && rawContent) {
+      resizeGifs(rawContent);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageMetadata, rawContent]);
 
   const handleNewImage = () => {
     fileUploaderProps.cancel();
+    setConvertedEmotes([]);
   };
 
   const handleDownloadAllImages = async () => {
@@ -52,11 +81,19 @@ const AnimatedToolCore = ({
       />
     );
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <span>Loading...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6 items-center">
       <div className="flex flex-col gap-4">
         <span className="font-bold">Preview</span>
-        <TwitchPreview key={rawContent} emote={convertedEmotes[0]} />
+        <TwitchPreview emote={convertedEmotes[0]} />
       </div>
       <div className="flex flex-col gap-4 w-full max-w-[800px]">
         <span className="font-bold">Emotes</span>

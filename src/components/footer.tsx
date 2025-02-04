@@ -21,7 +21,7 @@ export const Footer = () => {
         </svg>
       </a>
       <p className="text-xs text-center">
-        All images are processed locally and never leave your device.
+        Your images are processed in real-time and never saved on the server
       </p>
     </footer>
   );
