@@ -44,6 +44,7 @@ const StaticToolCore = ({
 
   const handleNewImage = () => {
     fileUploaderProps.cancel();
+    setConvertedEmotes([]);
   };
 
   const handleDownloadAllImages = async () => {
