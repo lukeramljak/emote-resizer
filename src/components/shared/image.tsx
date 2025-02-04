@@ -19,7 +19,7 @@ const ImageCard = ({ image }: ImageRendererProps) => {
           height={image.metadata.height}
         />
       </div>
-      <div className="flex flex-col items-center justify-between rounded-b-md p-2 font-bold text-xs text-gray-200 bg-twitch-purple sm:flex-row">
+      <div className="flex flex-col items-center justify-between rounded-b-md p-2 font-bold text-xs text-gray-200 bg-twitch-purple md:flex-row">
         <span>
           {image.metadata.width}px x {image.metadata.height}px
         </span>
@@ -35,7 +35,7 @@ interface ImageContainerProps {
 
 export const ImageContainer = ({ images }: ImageContainerProps) => {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid gap-4 sm:grid-cols-3 ">
       {images.map((image) => (
         <ImageCard key={image.content} image={image} />
       ))}

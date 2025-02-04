@@ -90,18 +90,22 @@ const AnimatedToolCore = ({
   }
 
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <div className="flex flex-col gap-4">
-        <span className="font-bold">Preview</span>
-        <TwitchPreview emote={convertedEmotes[0]} />
-      </div>
-      <div className="flex flex-col gap-4 w-full max-w-[800px]">
-        <span className="font-bold">Emotes</span>
-        <ImageContainer images={convertedEmotes} />
-      </div>
-      <div className="flex gap-2">
-        <Button onClick={handleNewImage}>New Image</Button>
-        <Button onClick={handleDownloadAllImages}>Download All</Button>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col items-center gap-4">
+        {convertedEmotes.length > 0 && (
+          <>
+            <span className="font-bold">Preview</span>
+            <TwitchPreview emote={convertedEmotes[0]} />
+            <div className="flex flex-col gap-4 w-full max-w-[800px]">
+              <span className="font-bold">Emotes</span>
+              <ImageContainer images={convertedEmotes} />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={handleNewImage}>New Image</Button>
+              <Button onClick={handleDownloadAllImages}>Download All</Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

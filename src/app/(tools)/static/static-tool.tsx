@@ -19,9 +19,12 @@ const StaticToolCore = ({
     fileUploaderProps;
   const [convertedEmotes, setConvertedEmotes] = useState<ResizedImage[]>([]);
   const [convertedBadges, setConvertedBadges] = useState<ResizedImage[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const convertImages = async () => {
+      setIsLoading(true);
+
       if (imageMetadata && imageContent) {
         const emotes = await convertImageToMultipleSizes(
           imageContent,
@@ -37,6 +40,8 @@ const StaticToolCore = ({
         );
         setConvertedBadges(badges);
       }
+
+      setIsLoading(false);
     };
 
     convertImages();
@@ -61,27 +66,38 @@ const StaticToolCore = ({
       />
     );
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <span>Loading...</span>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <div className="flex flex-col gap-4">
-        <span className="font-bold">Preview</span>
-        <TwitchPreview
-          key={imageContent}
-          badge={convertedBadges[0]}
-          emote={convertedEmotes[0]}
-        />
-      </div>
-      <div className="flex flex-col gap-4 w-full max-w-[800px]">
-        <span className="font-bold">Emotes</span>
-        <ImageContainer images={convertedEmotes} />
-      </div>
-      <div className="flex flex-col gap-4 w-full max-w-[800px]">
-        <span className="font-bold">Badges</span>
-        <ImageContainer images={convertedBadges} />
-      </div>
-      <div className="flex gap-2">
-        <Button onClick={handleNewImage}>New Image</Button>
-        <Button onClick={handleDownloadAllImages}>Download All</Button>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col items-center gap-4">
+        {convertedEmotes.length > 0 && convertedBadges.length > 0 && (
+          <>
+            <span className="font-bold">Preview</span>
+            <TwitchPreview
+              badge={convertedBadges[0]}
+              emote={convertedEmotes[0]}
+            />
+            <div className="flex flex-col gap-4 w-full max-w-[800px]">
+              <span className="font-bold">Emotes</span>
+              <ImageContainer images={convertedEmotes} />
+            </div>
+            <div className="flex flex-col gap-4 w-full max-w-[800px]">
+              <span className="font-bold">Badges</span>
+              <ImageContainer images={convertedBadges} />
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={handleNewImage}>New Image</Button>
+              <Button onClick={handleDownloadAllImages}>Download All</Button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
