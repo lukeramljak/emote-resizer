@@ -34,7 +34,7 @@ export default function ToolsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col justify-between p-8 sm:p-20">
+    <div className="flex min-h-dvh flex-col justify-between p-8 sm:p-20">
       <BackButton />
       <main className="flex flex-grow flex-col items-center justify-center">
         {children}

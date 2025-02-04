@@ -2,7 +2,6 @@ export const Footer = () => {
   return (
     <footer className="flex flex-col items-center mt-8 gap-6">
       <a
-        className="mx-auto"
         href="https://github.com/lukeramljak/emote-resizer"
         target="_blank"
         rel="noopener noreferrer"
