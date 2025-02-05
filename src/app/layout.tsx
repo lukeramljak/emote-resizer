@@ -1,7 +1,7 @@
+import { PostHogProvider } from "@/app/providers";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CSPostHogProvider } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,13 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <CSPostHogProvider>
+      <PostHogProvider>
         <body
           className={`${inter.className} bg-background text-foreground antialiased`}
         >
           {children}
         </body>
-      </CSPostHogProvider>
+      </PostHogProvider>
     </html>
   );
 }
