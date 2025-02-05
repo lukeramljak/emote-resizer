@@ -8,7 +8,7 @@ import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
 import { convertImageToMultipleSizes } from "@/lib/static-utils";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 import { useCallback, useEffect, useState } from "react";
 
 const useImageConverter = () => {
@@ -87,6 +87,7 @@ const StaticToolCore = ({
     convertImages,
     reset,
   } = useImageConverter();
+  const posthog = usePostHog();
 
   const processFile = useCallback(async () => {
     if (!imageMetadata || !imageContent) return;

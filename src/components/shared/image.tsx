@@ -1,12 +1,14 @@
 import { downloadImage, ResizedImage } from "@/lib/img-utils";
 import Image from "next/image";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 
 interface ImageRendererProps {
   image: ResizedImage;
 }
 
 const ImageCard = ({ image }: ImageRendererProps) => {
+  const posthog = usePostHog();
+
   return (
     <div
       className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors bg-twitch-dark/80 hover:bg-twitch-dark"

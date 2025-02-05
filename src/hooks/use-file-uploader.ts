@@ -1,6 +1,7 @@
 "use client";
 
 import { useClipboardPaste } from "@/hooks/use-clipboard-paste";
+import { usePostHog } from "posthog-js/react";
 import { type ChangeEvent, useCallback, useState } from "react";
 
 const parseSvgFile = (content: string, fileName: string) => {
@@ -106,6 +107,8 @@ export const useFileUploader = (): FileUploaderResult => {
     name: string;
   } | null>(null);
 
+  const posthog = usePostHog();
+
   const processFile = (file: File) => {
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -147,6 +150,7 @@ export const useFileUploader = (): FileUploaderResult => {
     const file = event.target.files?.[0];
     if (file) {
       processFile(file);
+      posthog.capture("file-upload");
     }
   };
 

@@ -8,7 +8,7 @@ import { TwitchPreview } from "@/components/shared/twitch-preview";
 import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
-import posthog from "posthog-js";
+import { usePostHog } from "posthog-js/react";
 import { useCallback, useEffect, useState } from "react";
 
 const useResizeGif = () => {
@@ -78,6 +78,7 @@ const AnimatedToolCore = ({
     fileUploaderProps;
   const { isLoading, convertedEmotes, error, resizeGif, reset } =
     useResizeGif();
+  const posthog = usePostHog();
 
   const processFile = useCallback(async () => {
     if (!imageMetadata || !rawContent) return;
