@@ -22,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <CSPostHogProvider>
-        <body>{children}</body>
         <body
           className={`${inter.className} bg-background text-foreground antialiased`}
         >
