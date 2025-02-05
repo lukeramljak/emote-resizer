@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.4.1",
     "@zip.js/zip.js": "^2.7.57",
     "next": "15.1.6",
     "pica": "^9.0.1",
