@@ -16,7 +16,7 @@ export const bytesToKilobytes = (bytes: number): string => {
 };
 
 export const stripFileExtension = (fileName: string): string => {
-  return fileName.replace(/\..+$/, "");
+  return fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
 };
 
 export const generateFileName = (image: ResizedImage): string => {
