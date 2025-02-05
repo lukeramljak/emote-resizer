@@ -14,7 +14,9 @@ const ImageCard = ({ image }: ImageRendererProps) => {
       className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors bg-twitch-dark/80 hover:bg-twitch-dark"
       onClick={() => {
         downloadImage(image);
-        posthog.capture("single-image-download");
+        posthog.capture("single-image-download", {
+          size: `${image.metadata.width}x${image.metadata.height}`,
+        });
       }}
     >
       <div className="flex items-center justify-center h-[calc(112px+2rem)]">
