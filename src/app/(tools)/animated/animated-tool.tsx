@@ -8,6 +8,7 @@ import { TwitchPreview } from "@/components/shared/twitch-preview";
 import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
+import posthog from "posthog-js";
 import { useCallback, useEffect, useState } from "react";
 
 const useResizeGif = () => {
@@ -98,6 +99,11 @@ const AnimatedToolCore = ({
     reset();
   }, [cancel, reset]);
 
+  const handleDownloadAll = async () => {
+    downloadAllImages(convertedEmotes);
+    posthog.capture("animated-download-all");
+  };
+
   if (!imageMetadata) {
     return (
       <UploadBox
@@ -133,9 +139,7 @@ const AnimatedToolCore = ({
 
             <div className="flex gap-2">
               <Button onClick={handleNewImage}>New Image</Button>
-              <Button onClick={() => downloadAllImages(convertedEmotes)}>
-                Download All
-              </Button>
+              <Button onClick={handleDownloadAll}>Download All</Button>
             </div>
           </>
         )}

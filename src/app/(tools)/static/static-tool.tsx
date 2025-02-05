@@ -8,6 +8,7 @@ import { UploadBox } from "@/components/shared/upload-box";
 import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
 import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
 import { convertImageToMultipleSizes } from "@/lib/static-utils";
+import posthog from "posthog-js";
 import { useCallback, useEffect, useState } from "react";
 
 const useImageConverter = () => {
@@ -109,6 +110,7 @@ const StaticToolCore = ({
 
   const handleDownloadAllImages = useCallback(async () => {
     await downloadAllImages([...convertedEmotes, ...convertedBadges]);
+    posthog.capture("static-download-all");
   }, [convertedEmotes, convertedBadges]);
 
   if (!imageMetadata) {

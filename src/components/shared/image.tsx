@@ -1,5 +1,6 @@
 import { downloadImage, ResizedImage } from "@/lib/img-utils";
 import Image from "next/image";
+import posthog from "posthog-js";
 
 interface ImageRendererProps {
   image: ResizedImage;
@@ -9,7 +10,10 @@ const ImageCard = ({ image }: ImageRendererProps) => {
   return (
     <div
       className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors bg-twitch-dark/80 hover:bg-twitch-dark"
-      onClick={() => downloadImage(image)}
+      onClick={() => {
+        downloadImage(image);
+        posthog.capture("single-image-download");
+      }}
     >
       <div className="flex items-center justify-center h-[calc(112px+2rem)]">
         <Image
