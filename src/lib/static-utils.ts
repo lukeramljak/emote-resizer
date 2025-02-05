@@ -1,9 +1,10 @@
+import { FileUploaderResult } from "@/hooks/use-file-uploader";
 import { bytesToKilobytes, ResizedImage } from "@/lib/img-utils";
 import Pica from "pica";
 
 export const convertImageToMultipleSizes = async (
   imageContent: string,
-  imageMetadata: { width: number; height: number; name: string },
+  imageMetadata: FileUploaderResult["imageMetadata"],
   sizes: number[],
 ): Promise<ResizedImage[]> => {
   const img = new Image();
@@ -33,7 +34,7 @@ export const convertImageToMultipleSizes = async (
         metadata: {
           width: size,
           height: size,
-          name: imageMetadata.name,
+          name: imageMetadata?.name || "image",
         },
         type: "image",
       };
