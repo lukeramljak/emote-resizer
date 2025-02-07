@@ -5,8 +5,11 @@ import { ImageContainer } from "@/components/shared/image";
 import { Loader } from "@/components/shared/loader";
 import { TwitchPreview } from "@/components/shared/twitch-preview";
 import { UploadBox } from "@/components/shared/upload-box";
-import { FileUploaderResult, useFileUploader } from "@/hooks/use-file-uploader";
-import { downloadAllImages, ResizedImage } from "@/lib/img-utils";
+import {
+  type FileUploaderResult,
+  useFileUploader,
+} from "@/hooks/use-file-uploader";
+import { type ResizedImage, downloadAllImages } from "@/lib/img-utils";
 import { convertImageToMultipleSizes } from "@/lib/static-utils";
 import { usePostHog } from "posthog-js/react";
 import { useCallback, useEffect, useState } from "react";
@@ -109,6 +112,7 @@ const StaticToolCore = ({
     reset();
   }, [cancel, reset]);
 
+  // biome-ignore lint: posthog is not a dependency
   const handleDownloadAllImages = useCallback(async () => {
     await downloadAllImages([...convertedEmotes, ...convertedBadges]);
     posthog.capture("static-download-all");

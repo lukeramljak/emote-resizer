@@ -1,4 +1,4 @@
-import { ResizedImage } from "@/lib/img-utils";
+import type { ResizedImage } from "@/lib/img-utils";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -14,6 +14,7 @@ const MoonIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
+    <title>Moon</title>
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
   </svg>
 );
@@ -30,6 +31,7 @@ const SunIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
+    <title>Sun</title>
     <circle cx="12" cy="12" r="4" />
     <path d="M12 2v2" />
     <path d="M12 20v2" />
@@ -80,11 +82,15 @@ export const TwitchPreview = ({ badge, emote }: TwitchPreviewProps) => {
       </div>
       <div className="flex">
         {theme === "dark" ? (
-          <button onClick={() => setTheme("light")}>
+          <button type="button" onClick={() => setTheme("light")}>
             <MoonIcon />
           </button>
         ) : (
-          <button onClick={() => setTheme("dark")} className="text-gray-900">
+          <button
+            type="button"
+            onClick={() => setTheme("dark")}
+            className="text-gray-900"
+          >
             <SunIcon />
           </button>
         )}

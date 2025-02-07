@@ -8,8 +8,8 @@ const parseSvgFile = (content: string, fileName: string) => {
   const parser = new DOMParser();
   const svgDoc = parser.parseFromString(content, "image/svg+xml");
   const svgElement = svgDoc.documentElement;
-  const width = parseInt(svgElement.getAttribute("width") ?? "300");
-  const height = parseInt(svgElement.getAttribute("height") ?? "150");
+  const width = Number.parseInt(svgElement.getAttribute("width") ?? "300");
+  const height = Number.parseInt(svgElement.getAttribute("height") ?? "150");
 
   // Convert SVG content to a data URL
   const svgBlob = new Blob([content], { type: "image/svg+xml" });
@@ -154,6 +154,7 @@ export const useFileUploader = (): FileUploaderResult => {
     }
   };
 
+  // biome-ignore lint: processFile is stable
   const handleFilePaste = useCallback((file: File) => {
     processFile(file);
   }, []);

@@ -1,6 +1,6 @@
-import { FileUploaderResult } from "@/hooks/use-file-uploader";
-import { ResizedImage } from "@/lib/img-utils";
-import { NextRequest, NextResponse } from "next/server";
+import type { FileUploaderResult } from "@/hooks/use-file-uploader";
+import type { ResizedImage } from "@/lib/img-utils";
+import { type NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 
 export async function POST(req: NextRequest) {

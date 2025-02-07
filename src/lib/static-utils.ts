@@ -1,5 +1,5 @@
-import { FileUploaderResult } from "@/hooks/use-file-uploader";
-import { bytesToKilobytes, ResizedImage } from "@/lib/img-utils";
+import type { FileUploaderResult } from "@/hooks/use-file-uploader";
+import { type ResizedImage, bytesToKilobytes } from "@/lib/img-utils";
 import Pica from "pica";
 
 export const convertImageToMultipleSizes = async (

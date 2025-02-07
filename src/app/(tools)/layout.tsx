@@ -15,6 +15,7 @@ const BackButton = () => {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
+          <title>Back</title>
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
