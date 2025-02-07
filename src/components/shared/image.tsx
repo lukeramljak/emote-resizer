@@ -1,4 +1,4 @@
-import { downloadImage, ResizedImage } from "@/lib/img-utils";
+import { type ResizedImage, downloadImage } from "@/lib/img-utils";
 import Image from "next/image";
 import { usePostHog } from "posthog-js/react";
 
@@ -9,15 +9,18 @@ interface ImageRendererProps {
 const ImageCard = ({ image }: ImageRendererProps) => {
   const posthog = usePostHog();
 
+  const handleClick = () => {
+    downloadImage(image);
+    posthog.capture("single-image-download", {
+      size: `${image.metadata.width}x${image.metadata.height}`,
+    });
+  };
+
   return (
-    <div
-      className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors bg-twitch-dark/80 hover:bg-twitch-dark"
-      onClick={() => {
-        downloadImage(image);
-        posthog.capture("single-image-download", {
-          size: `${image.metadata.width}x${image.metadata.height}`,
-        });
-      }}
+    <button
+      type="button"
+      className="flex flex-col justify-between border border-white/10 rounded-md cursor-pointer transition-colors outline-none focus:ring-1 focus:ring-twitch-purple bg-twitch-dark/80 hover:bg-twitch-dark"
+      onClick={handleClick}
     >
       <div className="flex items-center justify-center h-[calc(112px+2rem)]">
         <Image
@@ -33,7 +36,7 @@ const ImageCard = ({ image }: ImageRendererProps) => {
         </span>
         <span>{image.fileSize}KB</span>
       </div>
-    </div>
+    </button>
   );
 };
 
